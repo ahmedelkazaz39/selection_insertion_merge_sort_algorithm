@@ -4,8 +4,8 @@
 using namespace std;
 
 void selectionSort(int arr[], int n, int &comparisons, int &iterations) {
-    for (int i = 0; i < n - 1; ++i) {
-        for (int j = i + 1; j < n; ++j) {//this loop for min number of array
+    for (int i = 0; i < n - 1; i++) {  /// 5 2 1 4 6
+        for (int j = i + 1; j < n; j++) {//this loop for min number of array
             comparisons++;
             if (arr[j] < arr[i]) {
                 swap(arr[i], arr[j]);
@@ -16,37 +16,45 @@ void selectionSort(int arr[], int n, int &comparisons, int &iterations) {
 }
 
 void insertionSort(int arr[], int n, int &comparisons, int &iterations) {
-    for (int i = 1; i < n; ++i) {
-        int key = arr[i];
-        int j = i - 1;
+    for (int i = 1; i < n; i++) {   /// 5 |2 1 4 6
+        int key = arr[i]; ///2
+        int j = i - 1;  /// 0
         iterations++;
 
         while (j >= 0 && arr[j] > key) {
-            arr[j + 1] = arr[j];
-            j = j - 1;
+            arr[j + 1] = arr[j];   ///5
+            j = j - 1;   ///-1
             comparisons++;
         }
-        arr[j + 1] = key;
+        arr[j + 1] = key;  ///2
     }
 }
 
 void merge(int arr[], int left, int mid, int right, int &comparisons, int &iterations) {
-    int n1 = mid - left + 1; //first sub array arr[left ... min]
-    int n2 = right - mid;    // second sub array [min +1 ... right]
-//create new  two array
+    int n1 = mid - left + 1; ///size of first sub array arr[left ... min]
+    int n2 = right - mid;    /// size of second sub array [min +1 ... right]
+
+
+     ///create new  two array
     int L[n1], R[n2];
-//store left sub array
+
+
+    ///store left sub array
     for (int i = 0; i < n1; i++) {
         L[i] = arr[left + i];
     }
-    //store right sub array
 
+    ///store right sub array
     for (int j = 0; j < n2; j++) {
         R[j] = arr[mid + 1 + j];
     }
-//merge two array
-    int i = 0, j = 0, k = left;
-// compare left and right
+
+
+    ///merge two array
+    int i = 0, j = 0, k = left; ///k=>reverence
+
+
+    /// compare left and right
     while (i < n1 && j < n2) {
         comparisons++;
         if (L[i] <= R[j]) {
@@ -59,6 +67,7 @@ void merge(int arr[], int left, int mid, int right, int &comparisons, int &itera
         k++;
 
     }
+////    العناصر الباقية من بعد عملية المقارنه
 
     while (i < n1) {
         arr[k] = L[i];
@@ -79,6 +88,7 @@ void mergeSort(int arr[], int left, int right, int &comparisons, int &iterations
     if (left < right) {
         int mid = left + (right - left) / 2;
         iterations++;
+
         mergeSort(arr, left, mid, comparisons, iterations);// merge left sub array
         mergeSort(arr, mid + 1, right, comparisons, iterations); // merge right sub array
 
